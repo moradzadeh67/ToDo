@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/addTaskScreen.dart';
 
 class TodoListScreen extends StatefulWidget {
   @override
@@ -6,6 +7,27 @@ class TodoListScreen extends StatefulWidget {
 }
 
 class _TodoListScreenState extends State<TodoListScreen> {
+  Widget _buildTask(int index){
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 25.0),
+      child: Column(
+        children: [
+          ListTile(
+            title: Text('Task Title'),
+            subtitle: Text('Dec 4, 2021 * hi'),
+            trailing: Checkbox(
+              onChanged: (value){
+                print(value);
+              },
+              activeColor: Theme.of(context).primaryColor,
+              value: true,
+            ),
+          ),
+          Divider()
+        ],
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +36,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
               .of(context)
               .primaryColor,
           child: Icon(Icons.add),
-          onPressed: () => print('navigate'),
+          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AddTaskScreen())),
         ),
         body: ListView.builder(
           padding: EdgeInsets.symmetric(vertical: 80),
@@ -39,14 +61,9 @@ class _TodoListScreenState extends State<TodoListScreen> {
                 ),
               );
             }
-            return Container(
-              height: 100,
-              width: double.infinity,
-              color: Colors.pink,
-            );
+            return _buildTask(index);
           },
         )
-
     );
   }
 }
